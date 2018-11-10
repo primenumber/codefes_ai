@@ -5,5 +5,9 @@ LDFLAGS=-lboost_timer -lboost_system
 ai:$(OBJS)
 	g++ -o $@ $(CXXFLAGS) $^ $(LDFLAGS)
 
+clean:
+	-rm *.o
+	-rm ai
+
 %.o: %.cpp
 	g++ -c -o $@ $(CXXFLAGS) $<
