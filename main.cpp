@@ -21,6 +21,8 @@ int main() {
   std::cout << 1 << ' ' << 1 << std::endl;
   std::string i2c = "LURD";
   while (true) {
+    int turn, timeleft, score_me, score_op;
+    std::cin >> turn >> timeleft >> score_me >> score_op;
     Board me = input_bd();
     Board op = input_bd();
     GameState gs(me, op);
