@@ -42,7 +42,7 @@ int main() {
       }
       std::cout << "L 1 1 " << (r+1) << ' ' << (c+1) << std::endl;
     } else {
-      auto [score, play] = search(gs);
+      auto [score, play] = search(gs, mt);
       std::cout << i2c[static_cast<int>(play.dir)];
       std::cout << ' ' << play.m << ' ' << play.v;
       for (const auto &[r, c] : play.vp) {

@@ -1,4 +1,5 @@
 #pragma once
+#include <random>
 #include "gamestate.hpp"
 
-std::pair<int, Play> search(const GameState &gs);
+std::pair<int, Play> search(const GameState &gs, std::mt19937 &mt);
