@@ -1,4 +1,5 @@
 #include <iostream>
+#include <random>
 #include "gamestate.hpp"
 #include "search.hpp"
 
@@ -18,7 +19,10 @@ int main() {
   line::init();
   int turn;
   std::cin >> turn;
-  std::cout << 1 << ' ' << 1 << std::endl;
+  std::random_device rd;
+  std::mt19937 mt(rd());
+  std::uniform_int_distribution<int> dis(1, 5);
+  std::cout << dis(mt) << ' ' << dis(mt) << std::endl;
   std::string i2c = "LURD";
   while (true) {
     int turn, timeleft, score_me, score_op;
