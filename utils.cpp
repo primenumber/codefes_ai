@@ -17,8 +17,8 @@ void init() {
       comb[i][j] = res;
     }
   }
-  table.resize(26);
-  for (int i = 1; i <= 25; ++i) {
+  table.resize(25);
+  for (int i = 1; i < 25; ++i) {
     table[i].resize(i+1);
     for (int j = 1; j <= i; ++j) {
       table[i][j].resize(comb[i][j]);
