@@ -14,7 +14,7 @@ std::pair<int, Play> search(const GameState &gs, std::mt19937 &mt) {
       score = val;
       p = play;
       count = 1;
-    } else {
+    } else if (val == score) {
       ++count;
       std::uniform_int_distribution<int> dis(0, count-1);
       if (dis(mt) == 0) {
