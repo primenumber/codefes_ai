@@ -22,7 +22,7 @@ std::pair<int, Play> search(const GameState &gs, std::mt19937 &mt) {
   int loop_count = 0;
   while (timer.elapsed().wall < 80'000'000) {
     int index = dis(mt);
-    int val = -playout(nexts[index].first, 10, mt);
+    int val = -playout(nexts[index].first, 20, mt);
     score[index] = (score[index] * count[index] + val) / (count[index]+1);
     ++count[index];
     ++loop_count;
