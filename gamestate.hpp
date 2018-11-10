@@ -25,5 +25,7 @@ struct Play {
 };
 
 std::vector<std::pair<GameState, Play>> next_states(const GameState &gs);
+int next_states_count(const GameState &gs);
+std::pair<GameState, Play> play_index(const GameState &gs, const int index);
 
 std::string to_string(const GameState &gs);

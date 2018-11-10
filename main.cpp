@@ -2,6 +2,7 @@
 #include <random>
 #include "gamestate.hpp"
 #include "search.hpp"
+#include "utils.hpp"
 
 Board input_bd() {
   Board res;
@@ -17,6 +18,7 @@ Board input_bd() {
 
 int main() {
   line::init();
+  init();
   int turn;
   std::cin >> turn;
   std::random_device rd;
@@ -27,6 +29,7 @@ int main() {
   while (true) {
     int turn, timeleft, score_me, score_op;
     std::cin >> turn >> timeleft >> score_me >> score_op;
+    if (std::cin.eof()) break;
     Board me = input_bd();
     Board op = input_bd();
     GameState gs(me, op);
