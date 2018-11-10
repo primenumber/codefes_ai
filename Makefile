@@ -1,5 +1,5 @@
 OBJS=main.o gamestate.o board.o line.o eval.o search.o
-CXXFLAGS=-std=c++17 -Og -g -march=native -mtune=native
+CXXFLAGS=-std=c++17 -O3 -march=native -mtune=native
 LDFLAGS=-lboost_timer -lboost_system
 
 ai:$(OBJS)
