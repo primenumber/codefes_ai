@@ -88,26 +88,19 @@ std::pair<GameState, Play> play_index(const GameState &gs, const int index) {
         next_count += combination(n, count);
         continue;
       }
-      int x, y;
-      for (int T = (1 << count) - 1; T < (1 << n);
-          x = T & -T, y = T + x, T = (((T & ~y) / x) >> 1) | y) {
-        if (index == next_count) {
-          Board nx = gs.get_op();
-          std::vector<std::pair<int, int>> vp;
-          for (int j = 0; j < n; ++j) {
-            if ((T >> j) & 1) {
-              auto [r, c] = empties[j];
-              nx.at(r, c) = i+1;
-              vp.emplace_back(r, c);
-            }
-          }
-          return std::make_pair(
-            GameState(nx, bd),
-            Play{dir, count, i+1, vp});
-        } else {
-          ++next_count;
+      Board nx = gs.get_op();
+      std::vector<std::pair<int, int>> vp;
+      const int T = get_combination(n, count, index - next_count);
+      for (int j = 0; j < n; ++j) {
+        if ((T >> j) & 1) {
+          auto [r, c] = empties[j];
+          nx.at(r, c) = i+1;
+          vp.emplace_back(r, c);
         }
       }
+      return std::make_pair(
+          GameState(nx, bd),
+          Play{dir, count, i+1, vp});
     }
   }
   throw std::out_of_range("Out of range");
