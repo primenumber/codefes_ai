@@ -61,20 +61,16 @@ int eval_impl(const Board &bd) {
   int sum = 0;
   for (int i = 0; i < 5; ++i) {
     for (int j = 0; j < 4; ++j) {
-      //if (bd.at(i, j) && bd.at(i, j+1)) {
-        sum += abs((1 << bd.at(i, j)) - (1 << bd.at(i, j+1)));
-      //}
+      sum -= abs((1 << bd.at(i, j)) - (1 << bd.at(i, j+1)));
     }
   }
   for (int i = 0; i < 4; ++i) {
     for (int j = 0; j < 5; ++j) {
-      //if (bd.at(i, j) && bd.at(i+1, j)) {
-        sum += abs((1 << bd.at(i, j)) - (1 << bd.at(i+1, j)));
-      //}
+      sum -= abs((1 << bd.at(i, j)) - (1 << bd.at(i+1, j)));
     }
   }
-  sum += stability(bd);
-  return -sum;
+  //sum += stability(bd);
+  return sum;
 }
 
 int eval(const GameState &gs) {
