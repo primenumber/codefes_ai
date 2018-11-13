@@ -16,7 +16,7 @@ int playout(const GameState &gs, const int depth, std::mt19937 &mt) {
   return -playout(play_index(gs, dis(mt)).first, depth-1, mt);
 }
 
-std::pair<int, Play> search(const GameState &gs, std::mt19937 &mt) {
+std::pair<int, Play> search(const GameState &gs, std::mt19937 &mt, const int tl) {
   int n = next_states_count(gs);
   std::vector<std::optional<std::pair<GameState, Play>>> nexts(n);
   if (n < 10000) {
@@ -38,7 +38,7 @@ std::pair<int, Play> search(const GameState &gs, std::mt19937 &mt) {
   for (int i = 0; i < 6; ++i) {
     vt.emplace_back([&](const int i) {
       std::uniform_int_distribution<int> dis(0, n-1);
-      while (timer.elapsed().wall < 80'000'000) {
+      while (timer.elapsed().wall < 0.8 * tl) {
         int index = dis(vmt[i]);
         int val;
         m.lock();

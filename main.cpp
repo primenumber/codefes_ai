@@ -45,7 +45,8 @@ int main() {
       }
       std::cout << "L 1 1 " << (r+1) << ' ' << (c+1) << std::endl;
     } else {
-      auto [score, play] = search(gs, mt);
+      int64_t tl = timeleft * 1000000ll / (1000 - turn);
+      auto [score, play] = search(gs, mt, tl);
       std::cout << i2c[static_cast<int>(play.dir)];
       std::cout << ' ' << play.m << ' ' << play.v;
       for (const auto &[r, c] : play.vp) {
