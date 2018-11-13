@@ -45,7 +45,7 @@ std::vector<std::pair<GameState, Play>> next_states(const GameState &gs) {
   return res;
 }
 
-int next_states_count(const GameState &gs) {
+std::vector<int> next_states_count_vec(const GameState &gs) {
   int empties_count = 0;
   for (int i = 0; i < 5; ++i) {
     for (int j = 0; j < 5; ++j) {
@@ -55,16 +55,27 @@ int next_states_count(const GameState &gs) {
     }
   }
   auto vt = next_boards(gs.get_me());
-  int res = 0;
+  std::vector<int> res(4);
   for (const auto [bd, score, merge, dir] : vt) {
+    int sum = 0;
     for (int i = 0; i <= merge; ++i) {
       const int count = 1 << (merge-i);
       const int n = empties_count;
       if (count > n) continue;
-      res += combination(n, count);
+      sum += combination(n, count);
     }
+    res[static_cast<int>(dir)] = sum;
   }
   return res;
+}
+
+int next_states_count(const GameState &gs) {
+  auto res = next_states_count_vec(gs);
+  int sum = 0;
+  for (int count : res) {
+    sum += count;
+  }
+  return sum;
 }
 
 std::pair<GameState, Play> play_index(const GameState &gs, const int index) {
