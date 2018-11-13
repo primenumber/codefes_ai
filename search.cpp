@@ -44,11 +44,11 @@ std::pair<int, Play> search(const GameState &gs, std::mt19937 &mt) {
         m.lock();
         if (auto next = nexts[index]) {
           m.unlock();
-          val = -playout(next->first, 20, vmt[i]);
+          val = -playout(next->first, 40, vmt[i]);
         } else {
           m.unlock();
           auto next_ = play_index(gs, index);
-          val = -playout(next_.first, 20, vmt[i]);
+          val = -playout(next_.first, 40, vmt[i]);
           m.lock();
           nexts[index] = next_;
           m.unlock();
