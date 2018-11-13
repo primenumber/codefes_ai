@@ -3,6 +3,7 @@
 #include "gamestate.hpp"
 #include "search.hpp"
 #include "utils.hpp"
+#include "eval.hpp"
 
 Board input_bd() {
   Board res;
@@ -19,6 +20,7 @@ Board input_bd() {
 int main() {
   line::init();
   init();
+  init_eval();
   int turn;
   std::cin >> turn;
   std::random_device rd;

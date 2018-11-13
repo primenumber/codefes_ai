@@ -1,6 +1,19 @@
 #include "eval.hpp"
+#include <cmath>
+#include <fstream>
 
 constexpr int INF = 1000000;
+
+double val_table[16];
+double offset;
+
+void init_eval() {
+  std::ifstream ifs("table");
+  for (int i = 0; i < 16; ++i) {
+    ifs >> val_table[i];
+  }
+  ifs >> offset;
+}
 
 bool is_stable(const line::Line &line) {
   bool ok = true;
@@ -56,23 +69,35 @@ int stability(const Board &bd) {
   return score;
 }
 
-int eval_impl(const Board &bd) {
+double sigmoid(const double x) {
+  return 1.0 / (1 + std::exp(x));
+}
+
+double eval(const Board &bd) {
   if (bd.is_gameover()) return -INF;
   int sum = 0;
   for (int i = 0; i < 5; ++i) {
     for (int j = 0; j < 4; ++j) {
-      sum -= abs((1 << bd.at(i, j)) - (1 << bd.at(i, j+1)));
+      int a = bd.at(i, j);
+      int b = bd.at(i, j+1);
+      int x = std::max(a, b);
+      int n = std::min(a, b);
+      sum += val_table[x - n] * (1 << x);
     }
   }
   for (int i = 0; i < 4; ++i) {
     for (int j = 0; j < 5; ++j) {
-      sum -= abs((1 << bd.at(i, j)) - (1 << bd.at(i+1, j)));
+      int a = bd.at(i, j);
+      int b = bd.at(i+1, j);
+      int x = std::max(a, b);
+      int n = std::min(a, b);
+      sum += val_table[x - n] * (1 << x);
     }
   }
-  //sum += stability(bd);
-  return sum;
+  sum += offset;
+  return sigmoid(sum) * INF;
 }
 
 int eval(const GameState &gs) {
-  return eval_impl(gs.get_me()) - eval_impl(gs.get_op());
+  return eval(gs.get_me()) - eval(gs.get_op());
 }
