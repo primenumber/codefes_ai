@@ -24,6 +24,8 @@ struct Play {
   std::vector<std::pair<int, int>> vp;
 };
 
+bool operator==(const Play &, const Play &);
+
 std::vector<std::pair<GameState, Play>> next_states(const GameState &gs);
 std::vector<int> next_states_count_vec(const GameState &gs);
 int next_states_count(const GameState &gs);

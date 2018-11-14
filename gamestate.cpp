@@ -3,6 +3,12 @@
 #include <exception>
 #include <iostream>
 
+bool operator==(const Play &lhs, const Play &rhs) {
+  return lhs.dir == rhs.dir &&
+    lhs.m == rhs.m && lhs.v == rhs.v &&
+    lhs.vp == rhs.vp;
+}
+
 bool GameState::is_gameover() const {
   return me.is_gameover() || op.is_gameover();
 }
