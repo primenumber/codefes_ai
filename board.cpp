@@ -160,11 +160,8 @@ std::string to_string(const Board &bd) {
   std::string res;
   for (int i = 0; i < 5; ++i) {
     for (int j = 0; j < 5; ++j) {
-      if (bd.at(i, j)) {
-        res += to_string_hex(bd.at(i, j));
-      } else {
-        res += ".";
-      }
+      if (j) res += ' ';
+      res += std::to_string((int)bd.at(i, j));
     }
     res += "\n";
   }
