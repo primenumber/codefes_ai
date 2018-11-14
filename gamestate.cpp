@@ -120,7 +120,6 @@ std::pair<GameState, Play> play_index(const GameState &gs, const int index) {
 std::string to_string(const GameState &gs) {
   std::string res;
   res += to_string(gs.get_me());
-  res += "#####\n";
   res += to_string(gs.get_op());
   return res;
 }
