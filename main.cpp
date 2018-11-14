@@ -3,6 +3,7 @@
 #include "gamestate.hpp"
 #include "search.hpp"
 #include "utils.hpp"
+#include "eval.hpp"
 
 Board input_bd() {
   Board res;
@@ -16,13 +17,27 @@ Board input_bd() {
   return res;
 }
 
-int main() {
+int main(int argc, char **argv) {
   line::init();
   init();
-  int turn;
-  std::cin >> turn;
+  eval_init();
   std::random_device rd;
   std::mt19937 mt(rd());
+  if (argc > 1) {
+    int n;
+    std::cin >> n;
+    for (int i = 0; i < n; ++i) {
+      Board me = input_bd();
+      Board op = input_bd();
+      GameState gs(me, op);
+      auto [score, play] = search(gs, mt, 100'000'000, false);
+      std::cout << to_string(gs);
+      std::cout << score << std::endl;
+    }
+    return 0;
+  }
+  int turn;
+  std::cin >> turn;
   std::uniform_int_distribution<int> dis(1, 5);
   std::cout << dis(mt) << ' ' << dis(mt) << std::endl;
   std::string i2c = "LURD";
